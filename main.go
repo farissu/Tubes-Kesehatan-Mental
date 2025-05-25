@@ -6,6 +6,7 @@ import (
 )
 
 type Kuesioner struct {
+	IDKuesioner  int
 	IDPengguna   int
 	Nama         string
 	Usia         int
@@ -22,15 +23,15 @@ func IsiKuesioner() {
 		fmt.Println("Maaf, tidak bisa menambah kuesioner baru.")
 		return
 	}
-
 	var input Kuesioner
 	var save string
 	input.Tanggal = time.Now().Format("2006-01-02")
+	input.IDKuesioner = jumlahData + 1
 
 	fmt.Println("-------------------------------------------")
 	fmt.Println("Anda memilih \"Isi Kuesioner\"")
 	fmt.Println("-------------------------------------------")
-	fmt.Println("ID Kuesioner: ", jumlahData+1)
+	fmt.Println("ID Kuesioner: ", input.IDKuesioner)
 	fmt.Print("ID Pengguna: ")
 	fmt.Scanln(&input.IDPengguna)
 	fmt.Print("Nama: ")
@@ -84,7 +85,7 @@ func menu() {
 		fmt.Println("---------------------------------------------------")
 		fmt.Println("Silakan pilih opsi di bawah ini:")
 		fmt.Println("1. Isi Kuesioner")
-		fmt.Println("2. Edit Kuesioner (belum tersedia)")
+		fmt.Println("2. Edit Kuesioner")
 		fmt.Println("3. Hapus Kuesioner (belum tersedia)")
 		fmt.Println("4. Cari Kuesioner (belum tersedia)")
 		fmt.Println("5. Cek Laporan (belum tersedia)")
@@ -99,7 +100,7 @@ func menu() {
 			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
 			return
 		} else {
-			fmt.Println("Fitur belum tersedia atau input tidak valid.")
+			fmt.Println("input tidak valid.")
 		}
 	}
 }
