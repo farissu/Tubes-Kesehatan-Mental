@@ -5,31 +5,44 @@ import (
 	"time"
 )
 
+type Kuesioner struct {
+	IDPengguna   int
+	Nama         string
+	Usia         int
+	JenisKelamin string
+	Tanggal      string
+	Jawaban      [5]int
+}
+
+var dataKuesioner [5]Kuesioner
+var jumlahData int
+
 func IsiKuesioner() {
-	var nama string
-	var ID_pengguna, usia int
-	var jenisKelamin string
-	var jawaban1, jawaban2, jawaban3, jawaban4, jawaban5 int
+	if jumlahData >= len(dataKuesioner) {
+		fmt.Println("Maaf, tidak bisa menambah kuesioner baru.")
+		return
+	}
+
+	var input Kuesioner
 	var save string
-	currentTime := time.Now()
-	ID_kuesioner := 1
+	input.Tanggal = time.Now().Format("2006-01-02")
+
 	fmt.Println("-------------------------------------------")
 	fmt.Println("Anda memilih \"Isi Kuesioner\"")
 	fmt.Println("-------------------------------------------")
-	fmt.Println("Silahkan isi kuesioner berikut :")
-	fmt.Println("-------------------------------------------")
-	fmt.Println("ID Kuisoner: ", ID_kuesioner)
+	fmt.Println("ID Kuesioner: ", jumlahData+1)
 	fmt.Print("ID Pengguna: ")
-	fmt.Scanln(&ID_pengguna)
+	fmt.Scanln(&input.IDPengguna)
 	fmt.Print("Nama: ")
-	fmt.Scanln(&nama)
+	fmt.Scanln(&input.Nama)
 	fmt.Print("Usia: ")
-	fmt.Scanln(&usia)
+	fmt.Scanln(&input.Usia)
 	fmt.Print("Jenis Kelamin: ")
-	fmt.Scanln(&jenisKelamin)
-	fmt.Println("Tanggal Pengisian:", currentTime.Format("2006-01-02"))
+	fmt.Scanln(&input.JenisKelamin)
+	fmt.Println("Tanggal Pengisian:", input.Tanggal)
+
 	fmt.Println("-------------------------------------------")
-	fmt.Println("Isilah jawaban kuesioner berikut dengan memilih angka dari 1 hingga 5, sesuai dengan tingkat depresi Anda:")
+	fmt.Println("Isilah jawaban kuesioner berikut (1-5):")
 	fmt.Println("1 = tidak sama sekali")
 	fmt.Println("2 = beberapa hari terakhir (1-2 hari)")
 	fmt.Println("3 = kadang-kadang (3-5 hari)")
@@ -37,61 +50,60 @@ func IsiKuesioner() {
 	fmt.Println("5 = hampir setiap hari (11-14 hari)")
 	fmt.Println("-------------------------------------------")
 
-	fmt.Println("1. Apakah kamu merasakan kelelahan emosional, sedih, tertekan atau putus asa akhir akhir ini?")
-	fmt.Print("Jawaban (1-5): ")
-	fmt.Scanln(&jawaban1)
+	pertanyaan := [5]string{
+		"1. Apakah kamu merasa sedih, tertekan atau putus asa akhir-akhir ini?",
+		"2. Apakah kamu sulit untuk merasa senang atau menikmati hal-hal yang biasanya disukai?",
+		"3. Apakah kamu merasa khawatir atau tegang secara terus-menerus?",
+		"4. Apakah kamu kesulitan tidur atau tidur terlalu banyak?",
+		"5. Apakah kamu cemas di situasi sosial atau merasa tidak fokus?",
+	}
 
-	fmt.Println("\n2. Apakah kamu sulit untuk merasa senang atau tidak menikmati hal-hal yang biasanya disukai?")
-	fmt.Print("Jawaban (1-5): ")
-	fmt.Scanln(&jawaban2)
+	for i := 0; i < 5; i++ {
+		fmt.Println(pertanyaan[i])
+		fmt.Print("Jawaban (1-5): ")
+		fmt.Scanln(&input.Jawaban[i])
+	}
 
-	fmt.Println("\n3. Apakah kamu merasa khawatir atau tegang secara terus-menerus?")
-	fmt.Print("Jawaban (1-5): ")
-	fmt.Scanln(&jawaban3)
-
-	fmt.Println("\n4. Apakah kamu merasakan kesulitan untuk tertidur atau tidur terlalu banyak?")
-	fmt.Print("Jawaban (1-5): ")
-	fmt.Scanln(&jawaban4)
-
-	fmt.Println("\n5. Apakah kamu merasa cemas ketika berada di situasi sosial atau berbicara dengan orang lain dan merasa tidak fokus?")
-	fmt.Print("Jawaban (1-5): ")
-	fmt.Scanln(&jawaban5)
-	fmt.Println("-------------------------------------------")
-	fmt.Println("Apakah Anda ingin menyimpan kuesioner ini? (Y/N):")
+	fmt.Print("Apakah Anda ingin menyimpan kuesioner ini? (Y/N): ")
 	fmt.Scanln(&save)
+
 	if save == "Y" || save == "y" {
-		main()
-	} else if save == "N" || save == "n" {
-		main()
+		dataKuesioner[jumlahData] = input
+		jumlahData++
+		fmt.Println("Kuesioner berhasil disimpan.")
 	} else {
-		fmt.Println("Input tidak valid. Mohon masukkan Y/N")
-		fmt.Print("Apakah Anda ingin menyimpan kuesioner ini? (Y/N): ")
-		fmt.Scanln(&save)
+		fmt.Println("Kuesioner tidak disimpan.")
 	}
-	fmt.Println("-------------------------------------------")
-
 }
 
-func menu(pilihan int) {
-	fmt.Println("---------------------------------------------------")
-	fmt.Println("        Aplikasi Manajemen Kesehatan Mental        ")
-	fmt.Println("---------------------------------------------------")
-	fmt.Println("Silakan pilih opsi di bawah ini:")
-	fmt.Println("1. Isi Kuesioner")
-	fmt.Println("2. Edit Kuesioner")
-	fmt.Println("3. Hapus Kuesioner")
-	fmt.Println("4. Cari Kuesioner")
-	fmt.Println("5. Cek Laporan")
-	fmt.Println("6. Keluar")
-	fmt.Println("---------------------------------------------------")
-	fmt.Print("Pilih opsi (1-6): ")
-	fmt.Scanln(&pilihan)
-	if pilihan == 1 {
-		IsiKuesioner()
-	}
-
-}
-func main() {
+func menu() {
 	var pilihan int
-	menu(pilihan)
+	for {
+		fmt.Println("---------------------------------------------------")
+		fmt.Println("        Aplikasi Manajemen Kesehatan Mental        ")
+		fmt.Println("---------------------------------------------------")
+		fmt.Println("Silakan pilih opsi di bawah ini:")
+		fmt.Println("1. Isi Kuesioner")
+		fmt.Println("2. Edit Kuesioner (belum tersedia)")
+		fmt.Println("3. Hapus Kuesioner (belum tersedia)")
+		fmt.Println("4. Cari Kuesioner (belum tersedia)")
+		fmt.Println("5. Cek Laporan (belum tersedia)")
+		fmt.Println("6. Keluar")
+		fmt.Println("---------------------------------------------------")
+		fmt.Print("Pilih opsi (1-6): ")
+		fmt.Scanln(&pilihan)
+
+		if pilihan == 1 {
+			IsiKuesioner()
+		} else if pilihan == 6 {
+			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
+			return
+		} else {
+			fmt.Println("Fitur belum tersedia atau input tidak valid.")
+		}
+	}
+}
+
+func main() {
+	menu()
 }
