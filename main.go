@@ -131,6 +131,21 @@ func EditKuesioner() {
 		fmt.Println("Perubahan kuesioner tidak disimpan.")
 	}
 }
+func HapusKuesioner() {
+	var id int
+	fmt.Print("Masukkan ID kuesioner yang ingin dihapus: ")
+	fmt.Scanln(&id)
+	if id < 1 || id > jumlahData {
+		fmt.Println("ID kuesioner tidak valid.")
+		return
+	}
+	for i := id - 1; i < jumlahData-1; i++ {
+		dataKuesioner[i] = dataKuesioner[i+1]
+		dataKuesioner[i].IDKuesioner = i + 1
+	}
+	jumlahData--
+	fmt.Println("Kuesioner berhasil dihapus.")
+}
 
 func menu() {
 	var pilihan int
@@ -153,6 +168,8 @@ func menu() {
 			IsiKuesioner()
 		} else if pilihan == 2 {
 			EditKuesioner()
+		} else if pilihan == 3 {
+			HapusKuesioner()
 		} else if pilihan == 6 {
 			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
 			return
