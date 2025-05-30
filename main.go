@@ -156,7 +156,7 @@ func menu() {
 		fmt.Println("Silakan pilih opsi di bawah ini:")
 		fmt.Println("1. Isi Kuesioner")
 		fmt.Println("2. Edit Kuesioner")
-		fmt.Println("3. Hapus Kuesioner (belum tersedia)")
+		fmt.Println("3. Hapus Kuesioner")
 		fmt.Println("4. Cari Kuesioner (belum tersedia)")
 		fmt.Println("5. Cek Laporan (belum tersedia)")
 		fmt.Println("6. Keluar")
