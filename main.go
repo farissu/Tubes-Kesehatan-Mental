@@ -178,6 +178,17 @@ func CariKuesioner() {
 	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[4])
 	fmt.Println("-------------------------------------------")
 }
+
+func Keluar() {
+	fmt.Println("-------------------------------------------")
+	fmt.Println("Anda memilih \"Keluar\"")
+	fmt.Println("-------------------------------------------")
+	fmt.Println("Terima kasih telah menggunakan Aplikasi Manajemen Kesehatan Mental.")
+	fmt.Println()
+	fmt.Println("Jaga kesehatan mentalmu, karena kamu berharga.")
+	fmt.Println("Sampai jumpa!")
+	fmt.Println("-------------------------------------------")
+}
 func menu() {
 	var pilihan int
 	for {
@@ -204,8 +215,7 @@ func menu() {
 		} else if pilihan == 4 {
 			CariKuesioner()
 		} else if pilihan == 6 {
-			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
-			return
+			Keluar()
 		} else {
 			fmt.Println("input tidak valid.")
 		}
