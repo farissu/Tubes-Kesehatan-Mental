@@ -147,6 +147,37 @@ func HapusKuesioner() {
 	fmt.Println("Kuesioner berhasil dihapus.")
 }
 
+func CariKuesioner() {
+	var id int
+	fmt.Print("Masukkan ID kuesioner yang ingin dicari: ")
+	fmt.Scanln(&id)
+	if id < 1 || id > jumlahData {
+		fmt.Println("ID kuesioner tidak valid.")
+		return
+	}
+	fmt.Println("-------------------------------------------")
+	fmt.Println("Anda memilih \"Cari Kuesioner\"")
+	fmt.Println("-------------------------------------------")
+	fmt.Println("ID Kuesioner: ", dataKuesioner[id-1].IDKuesioner)
+	fmt.Println("ID Pengguna: ", dataKuesioner[id-1].IDPengguna)
+	fmt.Println("Nama: ", dataKuesioner[id-1].Nama)
+	fmt.Println("Usia: ", dataKuesioner[id-1].Usia)
+	fmt.Println("Jenis Kelamin: ", dataKuesioner[id-1].JenisKelamin)
+	fmt.Println("Tanggal Pengisian: ", dataKuesioner[id-1].Tanggal)
+	fmt.Println("-------------------------------------------")
+	fmt.Println("Jawaban kuesioner:")
+	fmt.Println("1. Apakah kamu merasa sedih, tertekan atau putus asa akhir-akhir ini?")
+	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[0])
+	fmt.Println("2. Apakah kamu sulit untuk merasa senang atau menikmati hal-hal yang biasanya disukai?")
+	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[1])
+	fmt.Println("3. Apakah kamu merasa khawatir atau tegang secara terus-menerus?")
+	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[2])
+	fmt.Println("4. Apakah kamu kesulitan tidur atau tidur terlalu banyak?")
+	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[3])
+	fmt.Println("5. Apakah kamu cemas di situasi sosial atau merasa tidak fokus?")
+	fmt.Println("Jawaban: ", dataKuesioner[id-1].Jawaban[4])
+	fmt.Println("-------------------------------------------")
+}
 func menu() {
 	var pilihan int
 	for {
@@ -157,7 +188,7 @@ func menu() {
 		fmt.Println("1. Isi Kuesioner")
 		fmt.Println("2. Edit Kuesioner")
 		fmt.Println("3. Hapus Kuesioner")
-		fmt.Println("4. Cari Kuesioner (belum tersedia)")
+		fmt.Println("4. Cari Kuesioner")
 		fmt.Println("5. Cek Laporan (belum tersedia)")
 		fmt.Println("6. Keluar")
 		fmt.Println("---------------------------------------------------")
@@ -170,6 +201,8 @@ func menu() {
 			EditKuesioner()
 		} else if pilihan == 3 {
 			HapusKuesioner()
+		} else if pilihan == 4 {
+			CariKuesioner()
 		} else if pilihan == 6 {
 			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
 			return
